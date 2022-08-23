@@ -6,6 +6,9 @@ export default function useForm(initial = {}) {
   function handleInputChange(e) {
     let { value, name, type } = e.target;
 
+    // convert hyphen case to camel case
+    name = name.replace(/-([a-z])/g, (m, w) => w.toUpperCase());
+
     if (type === "number") {
       value = parseInt(value);
     }

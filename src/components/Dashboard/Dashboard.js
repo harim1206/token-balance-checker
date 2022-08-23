@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
-import useForm from "../library/useForm";
-import UserAddressInput from "./UserAddressInput";
-import TokenAddressInput from "./TokenAddressInput";
-import { ethersLib } from "../library/ethers";
+// import TokenBalanceDisplay from "./TokenBalanceDisplay";
+// import TokenAddressInput from "./TokenAddressInput";
+// import UserAddressInput from "./UserAddressInput";
+import "./Dashboard.scss";
+import { useState } from "react";
+import { ethersLib } from "../../library/ethers";
+import useForm from "../../library/useForm";
+import AddressInput from "./AddressInput/AddressInput";
+import TokenBalance from "./TokenBalance/TokenBalance";
 
 export default function Dashboard() {
   const [tokenData, setTokenData] = useState({
@@ -10,12 +14,16 @@ export default function Dashboard() {
     symbol: "",
     balance: 0,
   });
-
   const [ENSName, setENSName] = useState("");
 
+  /*
+    Tether:
+    DAI:
+    Chainlink: 0x514910771AF9Ca656af840dff83E8264EcF986CA
+  */
   const { inputs, handleInputChange } = useForm({
-    "user-address": "0x994da0c3437a823F9e47dE448B62397D1bDfDdBa",
-    "token-address": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+    userAddress: "0x994da0c3437a823F9e47dE448B62397D1bDfDdBa",
+    tokenAddress: "0x514910771AF9Ca656af840dff83E8264EcF986CA",
   });
 
   function handleSubmit(e) {
@@ -30,8 +38,8 @@ export default function Dashboard() {
       symbol,
       tokenBalance: balance,
     } = await ethersLib.getTokenBalance(
-      inputs["user-address"],
-      inputs["token-address"]
+      inputs.userAddress,
+      inputs.tokenAddress
     );
 
     setTokenData({
@@ -42,29 +50,20 @@ export default function Dashboard() {
   }
 
   async function getENSname() {
-    const name = await ethersLib.resolveENS(inputs["user-address"]);
+    const name = await ethersLib.resolveENS(inputs.userAddress);
 
     setENSName(name);
   }
 
   return (
     <div className="dashboard">
-      <TokenAddressInput
-        tokenAddress={inputs["token-address"]}
+      <AddressInput
+        tokenAddress={inputs.tokenAddress}
+        userAddress={inputs.userAddress}
         handleInputChange={handleInputChange}
-      />
-      <UserAddressInput
-        tokenAddress={"xyz"}
-        userAddress={inputs["user-address"]}
         handleSubmit={handleSubmit}
-        handleInputChange={handleInputChange}
       />
-      <div className="balance-display">
-        <h3>ENS name: {ENSName}</h3>
-        <h3>name: {tokenData.name}</h3>
-        <h3>symbol: {tokenData.symbol}</h3>
-        <h3>balance: {tokenData.balance}</h3>
-      </div>
+      <TokenBalance tokenData={tokenData} ENSName={ENSName} />
     </div>
   );
 }
@@ -72,7 +71,7 @@ export default function Dashboard() {
 /*
 
 async function fetchBalance() {
-  const ETHERSCAN_API = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${TOKEN_ADDRESS}&address=${inputs["user-address"]}&tag=latest&apikey=${ETHERSCAN_API_KEY}`;
+  const ETHERSCAN_API = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${TOKEN_ADDRESS}&address=${inputs.userAddress}&tag=latest&apikey=${ETHERSCAN_API_KEY}`;
 
   const ETHPLORER_GET_ADDRESS_INFO = `https://api.ethplorer.io/getAddressInfo/${USER_ADDRESS}?apiKey=${ETHPLORER_API_KEY}`;
 

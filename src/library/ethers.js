@@ -10,6 +10,7 @@ async function getTokenBalance(userAddress, tokenAddress) {
     "function name() view returns (string)",
     "function symbol() view returns (string)",
     "function totalSupply() view returns (uint256)",
+    "function decimals() view returns (uint256)",
     "function balanceOf(address) view returns (uint)",
   ];
 
@@ -17,13 +18,14 @@ async function getTokenBalance(userAddress, tokenAddress) {
   const tokenBalance = await contract.balanceOf(userAddress);
   const name = await contract.name();
   const symbol = await contract.symbol();
-  const totalSupply = await contract.totalSupply();
+  const decimals = await contract.decimals();
+
+  // console.log("decimals: ", decimals.toNumber());
 
   return {
     name,
     symbol,
-    totalSupply,
-    tokenBalance: tokenBalance / 10 ** 18,
+    tokenBalance: tokenBalance / 10 ** decimals,
   };
 }
 

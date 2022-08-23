@@ -1,0 +1,15 @@
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-up {
+  @media (min-width: 600px) { @content; }
+}
+
+// usage
+// .my-box {
+//   padding: 10px;
+  
+//   @include for-desktop-up {
+//     padding: 20px;
+//   }
+// }

@@ -5,7 +5,7 @@ export default function UserAddressInput({
 }) {
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="user-address"> User Address</label>
+      <label htmlFor="user-address">User Address</label>
       <input
         type="text"
         id="user-address"

@@ -1,10 +1,7 @@
-import "./App.css";
-import Dashboard from "./components/Dashboard";
-import { ethersLib } from "./library/ethers";
+import "./App.scss";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
-  ethersLib.getTokenBalance();
-
   return (
     <div className="App">
       <Dashboard />
