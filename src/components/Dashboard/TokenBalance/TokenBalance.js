@@ -1,21 +1,20 @@
 import "./TokenBalance.scss";
-export default function TokenBalance({ tokenData, ENSName }) {
+export default function TokenBalance({ tokenBalanceData, ENSName }) {
   return (
     <div className="token-balance">
       <div className="token-balance__group">
-        <p className="label">ENS Name</p>
+        <p className="label">ENS Name / Address</p>
         <div className="text">{ENSName}</div>
       </div>
       <div className="token-balance__group">
         <p className="label">Token</p>
-        <div className="text">{tokenData.name}</div>
+        <div className="text">{tokenBalanceData.name}</div>
       </div>
       <div className="token-balance__group">
-        <p className="label">Quantity</p>
-        <div className="text">
-          {tokenData.balance}
-          <span className="symbol"> {tokenData.symbol}</span>
-        </div>
+        <p className="label">
+          Quantity <span className="symbol"> ({tokenBalanceData.symbol})</span>
+        </p>
+        <div className="text">{tokenBalanceData.balance}</div>
       </div>
     </div>
   );

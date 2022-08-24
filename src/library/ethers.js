@@ -34,7 +34,12 @@ async function resolveENS(userAddress) {
   return response ?? userAddress;
 }
 
+function isAddress(address) {
+  return ethers.utils.isAddress(address);
+}
+
 export const ethersLib = {
   getTokenBalance,
   resolveENS,
+  isAddress,
 };

@@ -6,6 +6,8 @@
   &__group {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: end;
     margin-top: 10px;
 
     label {
@@ -14,6 +16,11 @@
       font-size: $type-medium;
       font-weight: bold;
       line-height: 40px;
+
+      .required {
+        color: red;
+        font-size: $type-base;
+      }
     }
   
     input {
@@ -25,6 +32,18 @@
       padding: 10px;
       margin-top: 10px;
       height: 40px;
+    }
+
+    .error {
+      flex: 0 0 66%;
+      text-align: left;
+      padding-left: 10px;
+      font-size: $type-base;
+      color: $red;
+
+      &.hidden{
+        visibility: hidden;
+      }
     }
 
     @include for-tablet-up {
@@ -44,10 +63,10 @@
   &__submit {
 
     button {
-      background-color: $lavender-medium;
+      background-color: $purple;
       border: none;
       border-radius: 12px;
-      color: $lavender-dark;
+      color: $white;
       font-weight: bold;
       font-size: $type-medium;
       text-align: center;
@@ -58,9 +77,10 @@
       height: 50px;
       cursor: pointer;
 
-      &:hover {
-        background-color: $lavender-dark;
-        color:$white;
+      &:disabled {
+        color: $lavender-dark;
+        cursor: not-allowed;
+        background-color: $lavender-medium;
       }
     }
 

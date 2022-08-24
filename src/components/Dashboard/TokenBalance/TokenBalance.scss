@@ -17,6 +17,7 @@
     flex: 0 0 100%;
     text-align: left;
     margin-top: 20px;
+    padding-right: 10px;
     
     @include for-tablet-up {
       flex: 0 0 33%;
@@ -30,8 +31,9 @@
     }
 
     .text {
-      font-size: $type-medium;
+      font-size: $type-small;
       font-weight: bold;
+      word-break: break-all;
     }
   }
 }
