@@ -2,6 +2,8 @@
   "name": "matcha-project-harim-choi",
   "version": "0.1.0",
   "private": true,
+  "description": "Take home assignment for Matcha Frontend Engineer position for Harim Choi",
+  "author": "Harim Choi",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
@@ -13,6 +15,7 @@
     "sass": "^1.54.5",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

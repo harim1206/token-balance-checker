@@ -46,10 +46,6 @@ export default function Dashboard() {
       : setInputValid({ ...inputValid, userAddress: false });
   }, [inputs.userAddress]);
 
-  useEffect(() => {
-    console.log("inputValid: ", inputValid);
-  });
-
   function handleSubmit(e) {
     e.preventDefault();
     getTokenBalance();

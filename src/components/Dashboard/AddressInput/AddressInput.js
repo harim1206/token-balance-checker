@@ -22,6 +22,8 @@ export default function AddressInput({
           type="text"
           className="token-address"
           name="token-address"
+          placeholder="Token Contract Address"
+          data-testid="token-address"
           value={tokenAddress}
           onChange={handleInputChange}
         />
@@ -37,6 +39,8 @@ export default function AddressInput({
           type="text"
           className="user-address"
           name="user-address"
+          placeholder="User Address"
+          data-testid="user-address"
           value={userAddress}
           onChange={handleInputChange}
         />

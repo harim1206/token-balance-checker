@@ -1,7 +1,7 @@
 import "./TokenBalance.scss";
 export default function TokenBalance({ tokenBalanceData, ENSName }) {
   return (
-    <div className="token-balance">
+    <div className="token-balance" data-testid="token-balance">
       <div className="token-balance__group">
         <p className="label">ENS Name / Address</p>
         <div className="text">{ENSName}</div>
