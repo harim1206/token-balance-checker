@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+**Tools used** 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React, ES6+, SASS, Ethers.js, create-react-app, Jest, React testing library
 
-## Available Scripts
+**Ethers.js (vs. web3.js, Etherscan API, Ethplorer API)**
 
-In the project directory, you can run:
+Initially I researched for popular API’s to browse blockchain data that provided an endpoint to retrieve the token balance, and found Etherscan and Ethplorer API’s. However, when I looked into the ENS name resolution, neither provided this and I also couldn’t find alternative API’s to accomplish this.
 
-### `npm start`
+I learned the best approach to accomplishing the objective would to interact with the Ethereum blockchain directly using a library like web3.js or ethers.js. Upon browsing the documentation for both, I decided on using ether.js as the syntax seemed more straightforward and easier to understand. I especially appreciated that ethers provides human-readable ABI, which was more approchable for a first time user. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+I implemented the connection using ethers.js’s JSON-RPC API using a node provided by Infura. Using ethers also brings the benefits of higher request and rate limits, and provides more control and flexibility for building new features in the future as you are not limited by the available endpoints provided by the API services.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Component Architecture**
 
-### `npm test`
+The feature requirements implied that the token address should be provided (& hard-coded in the codebase) as a prop to the input component. Instead of the token contract address being hard-coded, I decided to build a second input component to empower the user to specify the ERC20 token, as well as the user address.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+With this addition, I revised the component architecture to the following:
 
-### `npm run build`
+```jsx
+function Dashboard () {
+	const [inputs, setInputs] = useState({ tokenAddress: '...', userAddress'...'})
+	const [tokenBalanceData, setTokenBalanceData] = useState({...})
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+	function	handleInputChange() {...}
+	function	handleSubmit() {...}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+	return() {
+		<AddressInput inputs={...} handleInputChange={...} handleSubmit={...}/>
+		<TokenBalance tokenBalanceData={...}/>
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<AddressInput /> renders a form that contains two input elements for token address and user address, and a submit button. The input handler and the submit handler is managed by the parent <Dashboard/> component. The submit handler fetches and sets the token balance data, and passes it down to the <TokenBalance/> component for display.
