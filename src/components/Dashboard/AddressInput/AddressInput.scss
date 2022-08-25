@@ -10,12 +10,20 @@
     justify-content: end;
     margin-top: 10px;
 
+    @include for-tablet-up {
+      flex-direction: row;
+    }
+
     label {
       flex: 0 0 100%;
       text-align: left;
       font-size: $type-medium;
       font-weight: bold;
       line-height: 40px;
+
+      @include for-tablet-up {
+        flex: 0 0 33%;
+      }
 
       .required {
         color: red;
@@ -30,8 +38,11 @@
       border: 1px solid $lavender-dark;
       border-radius: 15px;
       padding: 10px;
-      margin-top: 10px;
       height: 40px;
+
+      @include for-tablet-up {
+        flex: 0 0 66%;
+      }
     }
 
     .error {
@@ -43,19 +54,6 @@
 
       &.hidden{
         visibility: hidden;
-      }
-    }
-
-    @include for-tablet-up {
-      flex-direction: row;
-      
-      label {
-        flex: 0 0 33%;
-      }
-    
-      input {
-        flex: 0 0 66%;
-        margin-top: 0;
       }
     }
   }

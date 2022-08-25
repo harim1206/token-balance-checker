@@ -86,7 +86,7 @@ export default function Dashboard() {
     inputValid.tokenAddress;
 
   return (
-    <div className="dashboard">
+    <main className="dashboard">
       <h1>Token Balance Checker</h1>
       <AddressInput
         tokenAddress={inputs.tokenAddress}
@@ -99,9 +99,9 @@ export default function Dashboard() {
         <TokenBalance tokenBalanceData={tokenBalanceData} ENSName={ENSName} />
       )}
       {tokenBalanceError && (
-        <div>
+        <main>
           <h3>No result from input addresses</h3>
-        </div>
+        </main>
       )}
       <div className="test">
         <h3> for development purposes only</h3>
@@ -115,7 +115,7 @@ export default function Dashboard() {
         <p>vitalik.eth: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</p>
         <p>harim: 0x485b875e46c268C5c95815532C5Bba0F819997ea</p>
       </div>
-    </div>
+    </main>
   );
 }
 

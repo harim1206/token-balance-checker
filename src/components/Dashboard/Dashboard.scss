@@ -1,5 +1,10 @@
+@import '../../styles/mixins';
+@import '../../styles/vars';
+
 .dashboard {
   background-color: white;
+  box-shadow: rgb(0 0 0 / 10%) 0px 0px 1px, rgb(42 43 58 / 5%) 0px 20px 98px, rgb(42 43 58 / 6%) 0px 2px 12px;
+  border-radius: 10px;
   max-width: 800px;
   margin: 0 auto;
   padding: 50px 30px;
@@ -7,6 +12,7 @@
   top: 200px;
 
   h1 {
+    color: $lavender-dark;
     margin-bottom: 30px;
   }
 
