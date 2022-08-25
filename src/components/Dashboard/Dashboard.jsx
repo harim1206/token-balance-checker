@@ -87,6 +87,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
+      <h1>Token Balance Checker</h1>
       <AddressInput
         tokenAddress={inputs.tokenAddress}
         userAddress={inputs.userAddress}
