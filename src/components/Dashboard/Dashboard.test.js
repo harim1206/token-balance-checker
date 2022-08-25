@@ -51,10 +51,10 @@ describe("Input Validation", () => {
     TokenAddressInput = screen.getByTestId("token-address");
     UserAddressInput = screen.getByTestId("user-address");
     TokenAddressInputError = screen.getByText(
-      "Please enter a valid token address"
+      /Please enter a valid token address/
     );
     UserAddressInputError = screen.getByText(
-      "Please enter a valid user address"
+      /Please enter a valid user address/
     );
     validEthAddress = `0x994da0c3437a823F9e47dE448B62397D1bDfDdBa`;
     invalidEthAddress = `test`;

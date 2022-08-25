@@ -28,7 +28,8 @@ export default function AddressInput({
           onChange={handleInputChange}
         />
         <p className={inputValid.tokenAddress ? "error hidden" : "error"}>
-          Please enter a valid token address
+          Please enter a valid token address (A valid ethereum address is a
+          42-character hexadecimal address with 0x appended in front)
         </p>
       </div>
       <div className="address-input__group">
@@ -45,7 +46,8 @@ export default function AddressInput({
           onChange={handleInputChange}
         />
         <p className={inputValid.userAddress ? "error hidden" : "error"}>
-          Please enter a valid user address
+          Please enter a valid user address (A valid ethereum address is a
+          42-character hexadecimal address with 0x appended in front)
         </p>
       </div>
       <div className="address-input__submit">

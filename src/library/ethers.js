@@ -15,17 +15,22 @@ async function getTokenBalance(userAddress, tokenAddress) {
   ];
 
   const contract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
-  const tokenBalance = await contract.balanceOf(userAddress);
   const name = await contract.name();
   const symbol = await contract.symbol();
   const decimals = await contract.decimals();
+  let tokenBalance = await contract.balanceOf(userAddress);
 
   // console.log("decimals: ", decimals.toNumber());
+  tokenBalance = (tokenBalance / 10 ** decimals).toLocaleString("en", {
+    maximumFractionDigits: 18,
+  });
+
+  console.log(tokenBalance / 10 ** decimals);
 
   return {
     name,
     symbol,
-    tokenBalance: tokenBalance / 10 ** decimals,
+    tokenBalance,
   };
 }
 
