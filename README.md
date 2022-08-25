@@ -1,3 +1,12 @@
+# Matcha - Token Balance Checker
+
+## Installation
+
+1. `npm install` - to install the npm packages
+2. `npm start` - to run the development environment on localhost
+3. `npm test` - to run the react test suites
+
+## Project Description
 **Tools used** 
 
 React, ES6+, SASS, Ethers.js, create-react-app, Jest, React testing library
@@ -21,8 +30,8 @@ function Dashboard () {
 	const [inputs, setInputs] = useState({ tokenAddress: '...', userAddress'...'})
 	const [tokenBalanceData, setTokenBalanceData] = useState({...})
 
-	function	handleInputChange() {...}
-	function	handleSubmit() {...}
+	function handleInputChange() {...}
+	function handleSubmit() {...}
 
 	return() {
 		<AddressInput inputs={...} handleInputChange={...} handleSubmit={...}/>
@@ -31,3 +40,7 @@ function Dashboard () {
 ```
 
 <AddressInput /> renders a form that contains two input elements for token address and user address, and a submit button. The input handler and the submit handler is managed by the parent <Dashboard/> component. The submit handler fetches and sets the token balance data, and passes it down to the <TokenBalance/> component for display.
+
+
+## Callouts
+
