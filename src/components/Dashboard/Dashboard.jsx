@@ -1,6 +1,3 @@
-// import TokenBalanceDisplay from "./TokenBalanceDisplay";
-// import TokenAddressInput from "./TokenAddressInput";
-// import UserAddressInput from "./UserAddressInput";
 import "./Dashboard.scss";
 import { useState, useEffect } from "react";
 import { ethersLib } from "../../library/ethers";
@@ -118,35 +115,3 @@ export default function Dashboard() {
     </main>
   );
 }
-
-/*
-
-async function fetchBalance() {
-  const ETHERSCAN_API = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${TOKEN_ADDRESS}&address=${inputs.userAddress}&tag=latest&apikey=${ETHERSCAN_API_KEY}`;
-
-  const ETHPLORER_GET_ADDRESS_INFO = `https://api.ethplorer.io/getAddressInfo/${USER_ADDRESS}?apiKey=${ETHPLORER_API_KEY}`;
-
-  const ETHPLORER_GET_TOP_TOKENS = `https://api.ethplorer.io/getTopTokens?apiKey=${ETHPLORER_API_KEY}`;
-
-  const response = await fetch(ETHPLORER_GET_ADDRESS_INFO);
-  const data = await response.json();
-  const tokens = data.tokens;
-
-  const token = tokens.filter((token) => {
-    console.log("token.tokenInfo.address: ", token.tokenInfo.address);
-    return token.tokenInfo.address === TOKEN_ADDRESS.toLowerCase();
-  })[0];
-
-  const rawBalance = token.balance;
-  const decimals = parseInt(token.tokenInfo.decimals);
-  const balance = rawBalance / 10 ** decimals;
-
-  console.log("token:", token);
-
-  setBalance(balance);
-
-  console.log("response: ", response);
-  console.log("data: ", data);
-}
-
-*/
