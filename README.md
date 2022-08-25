@@ -44,9 +44,9 @@ function Dashboard () {
 
 ## Callouts
 
-Accessibility
-Debounce Input Handler
-Additional Tests
-Better token address input UI (dropdown, select, search)
-Typescript Implementation
-API Key security
+- Accessibility
+- Debounce Input Handler
+- Additional Tests
+- Better token address input UI (dropdown, select, search)
+- Typescript Implementation
+- API Key security
