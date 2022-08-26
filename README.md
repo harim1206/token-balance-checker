@@ -1,5 +1,8 @@
 # Matcha - Token Balance Checker
 
+## Project Description
+Token Balance Checker is a UI to check token balances of a specified ERC20 Token and an Ethereum User Address.
+
 ## Installation
 
 1. `npm install` - to install the npm packages
@@ -29,7 +32,7 @@ For best practices, I am aware that it is not safe to store any private informat
 - **unregistered**: `0x485b875e46c268C5c95815532C5Bba0F819997ea`
 
 
-## Project Description
+## Technical Decisions
 ### Tools used
 
 React, ES6+, SASS, Ethers.js, create-react-app, Jest, React testing library
