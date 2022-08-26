@@ -17,6 +17,13 @@ module.exports = {
     'no-multi-spaces': ['error'],
     'comma-dangle': ['error', 'only-multiline'],
     'react/prop-types': 'off',
-    'space-before-function-paren': ['error', 'ignore'],
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'ignore',
+        named: 'ignore',
+        asyncArrow: 'ignore',
+      },
+    ],
   },
 };
