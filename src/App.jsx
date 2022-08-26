@@ -1,7 +1,8 @@
-import "./App.scss";
-import Dashboard from "./components/Dashboard/Dashboard";
+import { React } from 'react';
+import './App.scss';
+import Dashboard from './components/Dashboard/Dashboard';
 
-function App() {
+function App () {
   return (
     <div className="App">
       <Dashboard />

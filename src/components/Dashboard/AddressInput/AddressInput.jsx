@@ -1,5 +1,6 @@
-import "./AddressInput.scss";
-export default function AddressInput({
+import { React } from 'react';
+import './AddressInput.scss';
+export default function AddressInput ({
   tokenAddress,
   userAddress,
   inputValid,
@@ -27,7 +28,7 @@ export default function AddressInput({
           value={tokenAddress}
           onChange={handleInputChange}
         />
-        <p className={inputValid.tokenAddress ? "error hidden" : "error"}>
+        <p className={inputValid.tokenAddress ? 'error hidden' : 'error'}>
           Please enter a valid token address
         </p>
       </div>
@@ -44,7 +45,7 @@ export default function AddressInput({
           value={userAddress}
           onChange={handleInputChange}
         />
-        <p className={inputValid.userAddress ? "error hidden" : "error"}>
+        <p className={inputValid.userAddress ? 'error hidden' : 'error'}>
           Please enter a valid user address
         </p>
       </div>

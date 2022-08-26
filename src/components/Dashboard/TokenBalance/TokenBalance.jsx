@@ -1,5 +1,6 @@
-import "./TokenBalance.scss";
-export default function TokenBalance({ tokenBalanceData, ENSName }) {
+import { React } from 'React';
+import './TokenBalance.scss';
+export default function TokenBalance ({ tokenBalanceData, ENSName }) {
   return (
     <div className="token-balance" data-testid="token-balance">
       <div className="token-balance__group">

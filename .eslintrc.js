@@ -14,7 +14,8 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     indent: ['error', 2],
-    'comma-dangle': ['error', 'ignore'],
     'no-multi-spaces': ['error'],
+    'comma-dangle': ['error', 'only-multiline'],
+    'react/prop-types': 'off',
   },
 };
