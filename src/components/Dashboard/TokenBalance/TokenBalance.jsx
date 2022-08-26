@@ -1,4 +1,4 @@
-import { React } from 'React';
+import { React } from 'react';
 import './TokenBalance.scss';
 export default function TokenBalance ({ tokenBalanceData, ENSName }) {
   return (
