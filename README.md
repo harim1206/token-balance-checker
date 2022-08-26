@@ -64,19 +64,29 @@ function Dashboard () {
 
 'AddressInput' renders a form that contains two input elements for token address and user address, and a submit button. The input handler and the submit handler is managed by the parent 'Dashboard' component. The submit handler fetches and sets the token balance data, and passes it down to the 'TokenBalance' component for display.
 
+### Other Decisions
+- **create-react-app vs. NextJS** 
+  - Given the limited scope of this project to a single component, I have decided to use create-react-app. A tool like NextJS would become a consideration for easily setting up a larger application that requires multiple pages, different rendering methods (server/static/client) & etc.
+- **SASS vs. a css framework like Tailwind, Material UI & etc.** 
+  - I decided to write the styling from scratch instead of using a CSS framework. A framework might be useful if I was collaborating with a bigger team because it quickly establishes a set of styling guidelines that we can follow without needing to start one from scratch.
+- **Separate SASS files vs CSS-in-JS, styled components & etc.**
+  - I find separating the CSS from the React components to be cleaner and more maintainable. This is a matter of prefrence, but historically the teams I have worked with preferred this route.
+- **ES Lint**
+  - standard React linting has been implemented in the project for code styling and the configurations can be found in .eslintrc.js
+- **Testing**
+  - Testing was written using react-testing-library & Jest
 
 ## Callouts / Areas of improvement
-- Testing
+- **Testing**
   - implement a more robust test suite & create a test file for each component instead of storing it all at the parent Dashboard component.
-- Check for and implement accessibility practices
+- **Check for and implement accessibility practices**
   - Semantic html elements, alt texts, tabbable elemnts, keyboard navigation, color contrast, etc.
-- Debounce Input Handler
+- **Debounce Input Handler**
   - Improve performance by debouncing input handlers so that the input handlers only executes once every x milliseconds instead of on every detected change.
-- Improve UX
+- **Improve UX**
   - Better token address input UI (dropdown, select, search) - for example, Ethplorer API has an endpoint for top 50 tokens with the highest transaction amounts that can be leveraged.
-  - Some type of a modal / message on hover 
   - Include symbols, images, animation, additional data & etc.
-- Typescript Implementation
+- **Typescript Implementation**
   - Implement typescript for scalability, static typing, identifying errors during development & etc.
   - I developed in ES6 for the purposes of speed and intended on implementing TS afterwards, but ran out of time!
-  
+  ****
