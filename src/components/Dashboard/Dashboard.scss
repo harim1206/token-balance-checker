@@ -9,14 +9,29 @@
   margin: 0 auto;
   padding: 50px 30px;
   position: relative;
-  top: 200px;
+  top: 50px;
+
+  @include for-tablet-up {
+    top: 200px;
+  }
 
   h1 {
     color: $lavender-dark;
     margin-bottom: 30px;
   }
 
-  .test {
-    margin-top: 200px;
+  .token-balance-error {
+    background-color: $lavender-light;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    padding: 30px;
+    justify-content: center;
+    
+    @include for-tablet-up {
+      padding: 60px;
+    }
+
   }
 }

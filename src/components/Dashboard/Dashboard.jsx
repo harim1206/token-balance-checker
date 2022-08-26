@@ -50,23 +50,24 @@ export default function Dashboard() {
   }
 
   async function getTokenBalance() {
-    const {
-      name,
-      symbol,
-      tokenBalance: balance,
-    } = await ethersLib
-      .getTokenBalance(inputs.userAddress, inputs.tokenAddress)
-      .catch(handleError);
+    try {
+      const {
+        name,
+        symbol,
+        tokenBalance: balance,
+      } = await ethersLib
+        .getTokenBalance(inputs.userAddress, inputs.tokenAddress)
 
-    function handleError(err) {
+        setTokenBalanceError(false);
+        setTokenBalanceData({
+          name,
+          symbol,
+          balance,
+        });
+
+    } catch (err) {
       setTokenBalanceError(true);
     }
-
-    setTokenBalanceData({
-      name,
-      symbol,
-      balance,
-    });
   }
 
   async function getENSname() {
@@ -96,22 +97,10 @@ export default function Dashboard() {
         <TokenBalance tokenBalanceData={tokenBalanceData} ENSName={ENSName} />
       )}
       {tokenBalanceError && (
-        <main>
+        <div className="token-balance-error">
           <h3>No result from input addresses</h3>
-        </main>
+        </div>
       )}
-      <div className="test">
-        <h3> for development purposes only</h3>
-        <h3> token addresses: </h3>
-        <p>USD: 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48</p>
-        <p>DAI: 0x6B175474E89094C44Da98b954EedeAC495271d0F</p>
-        <p>Chainlink: 0x514910771AF9Ca656af840dff83E8264EcF986CA</p>
-        <h3> user addresses: </h3>
-        <p>k33s.eth: 0x994da0c3437a823F9e47dE448B62397D1bDfDdBa</p>
-        <p>daidai.eth: 0x213657bCcC5CF8b74455d110C11D5A8eD6241DEC</p>
-        <p>vitalik.eth: 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</p>
-        <p>harim: 0x485b875e46c268C5c95815532C5Bba0F819997ea</p>
-      </div>
     </main>
   );
 }

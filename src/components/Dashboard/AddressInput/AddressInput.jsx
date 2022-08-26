@@ -22,14 +22,13 @@ export default function AddressInput({
           type="text"
           className="token-address"
           name="token-address"
-          placeholder="Token Contract Address"
+          placeholder="0x.."
           data-testid="token-address"
           value={tokenAddress}
           onChange={handleInputChange}
         />
         <p className={inputValid.tokenAddress ? "error hidden" : "error"}>
-          Please enter a valid token address (A valid ethereum address is a
-          42-character hexadecimal address with 0x appended in front)
+          Please enter a valid token address
         </p>
       </div>
       <div className="address-input__group">
@@ -40,14 +39,13 @@ export default function AddressInput({
           type="text"
           className="user-address"
           name="user-address"
-          placeholder="User Address"
+          placeholder="0x.."
           data-testid="user-address"
           value={userAddress}
           onChange={handleInputChange}
         />
         <p className={inputValid.userAddress ? "error hidden" : "error"}>
-          Please enter a valid user address (A valid ethereum address is a
-          42-character hexadecimal address with 0x appended in front)
+          Please enter a valid user address
         </p>
       </div>
       <div className="address-input__submit">

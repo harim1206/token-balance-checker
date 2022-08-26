@@ -16,6 +16,19 @@ Retrieving the token balance utilizies ethers.js library, which requires an Infu
 
 For best practices, I am aware that it is not safe to store any private information in the front-end even in a .env file, so in production, this would need to be addressed.
 
+### Test inputs of valid addresses
+**Token Contract Addresses**
+- **USD**: `0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48`
+- **DAI**: `0x6B175474E89094C44Da98b954EedeAC495271d0F`
+- **Chainlink**: `0x514910771AF9Ca656af840dff83E8264EcF986CA`
+
+**ENS Name & User Addresses**
+- **k33s.eth**: `0x994da0c3437a823F9e47dE448B62397D1bDfDdBa`
+- **daidai.eth**: `0x213657bCcC5CF8b74455d110C11D5A8eD6241DEC`
+- **vitalik.eth**: `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045`
+- **unregistered**: `0x485b875e46c268C5c95815532C5Bba0F819997ea`
+
+
 ## Project Description
 ### Tools used
 
@@ -61,6 +74,7 @@ function Dashboard () {
   - Improve performance by debouncing input handlers so that the input handlers only executes once every x milliseconds instead of on every detected change.
 - Improve UX
   - Better token address input UI (dropdown, select, search) - for example, Ethplorer API has an endpoint for top 50 tokens with the highest transaction amounts that can be leveraged.
+  - Some type of a modal / message on hover 
   - Include symbols, images, animation, additional data & etc.
 - Typescript Implementation
   - Implement typescript for scalability, static typing, identifying errors during development & etc.
