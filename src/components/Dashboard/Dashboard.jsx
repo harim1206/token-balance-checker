@@ -29,8 +29,8 @@ export default function Dashboard () {
   useEffect(() => {
     setTokenBalanceData(initialTokenBalanceState);
 
-    // input address is valid (no error message) if it is a valid eth address, or if it is blank, for initial render
-    ethersLib.isAddress(inputs.tokenAddress) || inputs.tokenAddress === ''
+  // input address is valid (no error message) if it is a valid eth address, or if it is blank, for initial render
+  ethersLib.isAddress(inputs.tokenAddress) || inputs.tokenAddress === ''
       ? setInputValid({ ...inputValid, tokenAddress: true })
       : setInputValid({ ...inputValid, tokenAddress: false });
   }, [inputs.tokenAddress]);
