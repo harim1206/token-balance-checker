@@ -22,6 +22,7 @@ export default function AddressInput ({
         <input
           type="text"
           className="token-address"
+          id="token-address"
           name="tokenAddress"
           placeholder="0x.."
           data-testid="token-address"
@@ -38,6 +39,7 @@ export default function AddressInput ({
         </label>
         <input
           type="text"
+          id="user-address"
           className="user-address"
           name="userAddress"
           placeholder="0x.."
