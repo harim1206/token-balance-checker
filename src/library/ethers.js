@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
 
-const INFURA_ID = process.env.REACT_APP_INFURA_ID;
+// const INFURA_ID = process.env.REACT_APP_INFURA_ID;
 const provider = new ethers.providers.JsonRpcProvider(
-  `https://mainnet.infura.io/v3/${INFURA_ID}`
+  'https://mainnet.infura.io/v3/a7fc233285164a97a2ac707db1f02570'
 );
 
 async function getTokenBalance(userAddress, tokenAddress) {
