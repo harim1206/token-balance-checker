@@ -1,49 +1,46 @@
 import './Dashboard.scss';
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { ethersLib } from '../../library/ethers';
-import useForm from '../../library/useForm';
 import AddressInput from './AddressInput/AddressInput';
 import TokenBalance from './TokenBalance/TokenBalance';
 
+const initialTokenBalanceState = {
+  name: '',
+  symbol: '',
+  balance: 0
+};
+
 export default function Dashboard () {
-  const initialTokenBalanceState = {
-    name: '',
-    symbol: '',
-    balance: 0
-  };
   const [tokenBalanceData, setTokenBalanceData] = useState(
     initialTokenBalanceState
   );
   const [tokenBalanceError, setTokenBalanceError] = useState(false);
   const [ENSName, setENSName] = useState('');
-  const { inputs, handleInputChange } = useForm({
+
+  const [inputs, setInputs] = useState({
     userAddress: '',
     tokenAddress: ''
   });
+
   const [inputValid, setInputValid] = useState({
     userAddress: true,
     tokenAddress: true
   });
 
-  // on token address input change
-  useEffect(() => {
+  function handleInputChange (e) {
+    const { value, name } = e.target;
     setTokenBalanceData(initialTokenBalanceState);
 
-  // input address is valid (no error message) if it is a valid eth address, or if it is blank, for initial render
-  ethersLib.isAddress(inputs.tokenAddress) || inputs.tokenAddress === ''
-      ? setInputValid({ ...inputValid, tokenAddress: true })
-      : setInputValid({ ...inputValid, tokenAddress: false });
-  }, [inputs.tokenAddress]);
+    ethersLib.isAddress(value) || value === ''
+      ? setInputValid({ ...inputValid, [name]: true })
+      : setInputValid({ ...inputValid, [name]: false });
 
-  // on user address input change
-  useEffect(() => {
-    setTokenBalanceData(initialTokenBalanceState);
-
-    // input address is valid (no error message) if it is a valid eth address, or if it is blank, for initial render
-    ethersLib.isAddress(inputs.userAddress) || inputs.userAddress === ''
-      ? setInputValid({ ...inputValid, userAddress: true })
-      : setInputValid({ ...inputValid, userAddress: false });
-  }, [inputs.userAddress]);
+    setInputs({
+      // copy the existing state
+      ...inputs,
+      [name]: value,
+    });
+  };
 
   function handleSubmit (e) {
     e.preventDefault();
@@ -99,7 +96,7 @@ export default function Dashboard () {
       )}
       {tokenBalanceError && (
         <div className="token-balance-error">
-          <h3>No result from input addresses</h3>
+          <p>No result from input addresses</p>
         </div>
       )}
     </main>
