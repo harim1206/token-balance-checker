@@ -1,8 +1,7 @@
 {
-  "name": "matcha-project-harim-choi",
+  "name": "token-balance-checker",
   "version": "0.1.0",
   "private": true,
-  "description": "Take home assignment for Matcha Frontend Engineer position for Harim Choi",
   "author": "Harim Choi",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",

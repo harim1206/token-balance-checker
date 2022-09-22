@@ -1,4 +1,4 @@
-# Matcha - Token Balance Checker
+Token Balance Checker
 
 ## Project Description
 Token Balance Checker is a UI to check token balances of a specified ERC20 Token and an Ethereum User Address.
