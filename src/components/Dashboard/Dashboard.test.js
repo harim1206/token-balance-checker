@@ -1,43 +1,43 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 
-import Dashboard from "./Dashboard";
+import Dashboard from './Dashboard';
 
-describe("Initial Rendering", () => {
+describe('Initial Rendering', () => {
   let submit, TokenAddressInput, UserAddressInput;
 
   beforeEach(() => {
     render(<Dashboard />);
-    submit = screen.getByRole("button");
-    TokenAddressInput = screen.getByTestId("token-address");
-    UserAddressInput = screen.getByTestId("user-address");
+    submit = screen.getByRole('button');
+    TokenAddressInput = screen.getByTestId('token-address');
+    UserAddressInput = screen.getByTestId('user-address');
   });
 
-  test("Token address input is rendered and blank", () => {
+  test('Token address input is rendered and blank', () => {
     expect(TokenAddressInput).toBeInTheDocument();
-    expect(TokenAddressInput.value).toBe("");
+    expect(TokenAddressInput.value).toBe('');
   });
 
-  test("User address input is rendered and blank", () => {
+  test('User address input is rendered and blank', () => {
     expect(UserAddressInput).toBeInTheDocument();
-    expect(UserAddressInput.value).toBe("");
+    expect(UserAddressInput.value).toBe('');
   });
 
-  test("Submit button is disabled", () => {
+  test('Submit button is disabled', () => {
     expect(submit).toBeInTheDocument();
     expect(submit).toBeDisabled();
   });
 
-  test("Balance display is hidden", () => {
+  test('Balance display is hidden', () => {
     render(<Dashboard />);
-    const TokenBalance = screen.queryByTestId("token-balance");
+    const TokenBalance = screen.queryByTestId('token-balance');
 
     expect(TokenBalance).toBeNull();
   });
 });
 
-describe("Input Validation", () => {
+describe('Input Validation', () => {
   let submit,
     TokenAddressInput,
     UserAddressInput,
@@ -48,9 +48,9 @@ describe("Input Validation", () => {
 
   beforeEach(() => {
     render(<Dashboard />);
-    submit = screen.getByRole("button");
-    TokenAddressInput = screen.getByTestId("token-address");
-    UserAddressInput = screen.getByTestId("user-address");
+    submit = screen.getByRole('button');
+    TokenAddressInput = screen.getByTestId('token-address');
+    UserAddressInput = screen.getByTestId('user-address');
     TokenAddressInputError = screen.getByText(
       /Please enter a valid token address/
     );
@@ -61,53 +61,53 @@ describe("Input Validation", () => {
     invalidEthAddress = `test`;
   });
 
-  test("Token Address Input: Error message shows and submit is disabled when the input is invalid", () => {
+  test('Token Address Input: Error message shows and submit is disabled when the input is invalid', () => {
     userEvent.type(TokenAddressInput, invalidEthAddress);
 
-    expect(TokenAddressInputError).not.toHaveClass("hidden");
+    expect(TokenAddressInputError).not.toHaveClass('hidden');
     expect(submit).toBeDisabled();
   });
 
-  test("Token Address Input: Error message is hidden when the input is valid", () => {
+  test('Token Address Input: Error message is hidden when the input is valid', () => {
     userEvent.clear(TokenAddressInput);
     userEvent.type(TokenAddressInput, validEthAddress);
 
-    expect(TokenAddressInputError).toHaveClass("hidden");
+    expect(TokenAddressInputError).toHaveClass('hidden');
   });
 
-  test("User Address Input: Error message shows and submit is disabled when the input is invalid", () => {
+  test('User Address Input: Error message shows and submit is disabled when the input is invalid', () => {
     userEvent.type(UserAddressInput, invalidEthAddress);
 
-    expect(UserAddressInputError).not.toHaveClass("hidden");
+    expect(UserAddressInputError).not.toHaveClass('hidden');
     expect(submit).toBeDisabled();
   });
 
-  test("User Address Input: Error message is hidden when the input is valid", () => {
+  test('User Address Input: Error message is hidden when the input is valid', () => {
     userEvent.type(UserAddressInput, validEthAddress);
 
-    expect(UserAddressInputError).toHaveClass("hidden");
+    expect(UserAddressInputError).toHaveClass('hidden');
   });
 });
 
-describe("Submit Validation", () => {
+describe('Submit Validation', () => {
   let submit, TokenAddressInput, UserAddressInput, validEthAddress;
 
   beforeEach(() => {
     render(<Dashboard />);
-    submit = screen.getByRole("button");
-    TokenAddressInput = screen.getByTestId("token-address");
-    UserAddressInput = screen.getByTestId("user-address");
+    submit = screen.getByRole('button');
+    TokenAddressInput = screen.getByTestId('token-address');
+    UserAddressInput = screen.getByTestId('user-address');
     validEthAddress = `0x994da0c3437a823F9e47dE448B62397D1bDfDdBa`;
   });
 
-  test("Submit button is enabled when both of the inputs are valid", () => {
+  test('Submit button is enabled when both of the inputs are valid', () => {
     userEvent.type(TokenAddressInput, validEthAddress);
     userEvent.type(UserAddressInput, validEthAddress);
 
     expect(submit).toBeEnabled();
   });
 
-  test("Submit button is disabled when the inputs are blank", () => {
+  test('Submit button is disabled when the inputs are blank', () => {
     userEvent.clear(TokenAddressInput);
     userEvent.clear(UserAddressInput);
 
@@ -115,14 +115,14 @@ describe("Submit Validation", () => {
   });
 });
 
-describe("Token Balance", () => {
-  test("If there is no result, error message is displayed", () => {});
+describe('Token Balance', () => {
+  test('If there is no result, error message is displayed', () => {});
 
-  test("If there is a result, tokenbalance is displayed", () => {});
+  test('If there is a result, tokenbalance is displayed', () => {});
 
-  test("Token decimals are displayed correctly for different tokens", () => {});
+  test('Token decimals are displayed correctly for different tokens', () => {});
 
-  test("Displays an ENS name if it exists", () => {});
+  test('Displays an ENS name if it exists', () => {});
 
-  test("Displays the address if ENS name does not exist", () => {});
+  test('Displays the address if ENS name does not exist', () => {});
 });
