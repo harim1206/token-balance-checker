@@ -1,5 +1,5 @@
 import { React } from 'react';
-import './AddressInput.scss';
+import styles from './AddressInput.module.scss';
 export default function AddressInput ({
   tokenAddress,
   userAddress,
@@ -14,14 +14,13 @@ export default function AddressInput ({
     !userAddress.length;
 
   return (
-    <form className="address-input" onSubmit={handleSubmit}>
-      <div className="address-input__group">
+    <form className={styles.addressInput} onSubmit={handleSubmit}>
+      <div className={styles.addressInputGroup}>
         <label htmlFor="token-address">
-          Token Address <span className="required">*</span>
+          Token Address <span className={styles.required}>*</span>
         </label>
         <input
           type="text"
-          className="token-address"
           id="token-address"
           name="tokenAddress"
           placeholder="0x.."
@@ -33,14 +32,13 @@ export default function AddressInput ({
           Please enter a valid token address
         </p>
       </div>
-      <div className="address-input__group">
+      <div className={styles.addressInputGroup}>
         <label htmlFor="user-address">
           User Address <span className="required">*</span>
         </label>
         <input
           type="text"
           id="user-address"
-          className="user-address"
           name="userAddress"
           placeholder="0x.."
           data-testid="user-address"
@@ -51,7 +49,7 @@ export default function AddressInput ({
           Please enter a valid user address
         </p>
       </div>
-      <div className="address-input__submit">
+      <div className={styles.addressInputSubmit}>
         <button type="submit" disabled={buttonDisabled}>
           Submit
         </button>

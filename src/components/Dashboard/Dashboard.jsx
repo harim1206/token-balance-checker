@@ -1,4 +1,4 @@
-import './Dashboard.scss';
+import styles from './Dashboard.module.scss';
 import { React, useState } from 'react';
 import { ethersLib } from '../../library/ethers';
 import AddressInput from './AddressInput/AddressInput';
@@ -82,7 +82,7 @@ export default function Dashboard () {
     inputValid.tokenAddress;
 
   return (
-    <main className="dashboard">
+    <main className={styles.dashboard}>
       <h1>Token Balance Checker</h1>
       <AddressInput
         tokenAddress={inputs.tokenAddress}
@@ -95,7 +95,7 @@ export default function Dashboard () {
         <TokenBalance tokenBalanceData={tokenBalanceData} ENSName={ENSName} />
       )}
       {tokenBalanceError && (
-        <div className="token-balance-error">
+        <div className={styles.tokenBalanceError}>
           <p>No result from input addresses</p>
         </div>
       )}

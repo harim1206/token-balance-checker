@@ -1,3 +1,4 @@
+import { React } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -57,8 +58,8 @@ describe('Input Validation', () => {
     UserAddressInputError = screen.getByText(
       /Please enter a valid user address/
     );
-    validEthAddress = `0x994da0c3437a823F9e47dE448B62397D1bDfDdBa`;
-    invalidEthAddress = `test`;
+    validEthAddress = '0x994da0c3437a823F9e47dE448B62397D1bDfDdBa';
+    invalidEthAddress = 'test';
   });
 
   test('Token Address Input: Error message shows and submit is disabled when the input is invalid', () => {
@@ -97,7 +98,7 @@ describe('Submit Validation', () => {
     submit = screen.getByRole('button');
     TokenAddressInput = screen.getByTestId('token-address');
     UserAddressInput = screen.getByTestId('user-address');
-    validEthAddress = `0x994da0c3437a823F9e47dE448B62397D1bDfDdBa`;
+    validEthAddress = '0x994da0c3437a823F9e47dE448B62397D1bDfDdBa';
   });
 
   test('Submit button is enabled when both of the inputs are valid', () => {
