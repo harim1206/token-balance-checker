@@ -1,6 +1,13 @@
-import { React } from 'react';
+import React, {} from 'react';
 import styles from './TokenBalance.module.scss';
-export default function TokenBalance ({ tokenBalanceData, ENSName }) {
+
+type TokenBalanceData = {
+  name: string,
+  symbol: string,
+  balance: number
+}
+
+export default function TokenBalance ({ tokenBalanceData, ENSName }: { tokenBalanceData: TokenBalanceData, ENSName: string }) {
   return (
     <div className={styles.tokenBalance} data-testid="token-balance">
       <div className={styles.tokenBalanceGroup}>

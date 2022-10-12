@@ -3,7 +3,7 @@
 
 .addressInput {
 
-  &__group {
+  .addressInputGroup {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -58,7 +58,7 @@
     }
   }
 
-  &__submit {
+  .addressInputSubmit {
 
     button {
       background-color: $purple;

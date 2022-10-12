@@ -1,17 +1,31 @@
-import { React } from 'react';
+import React from 'react';
 import styles from './AddressInput.module.scss';
+
+interface AddressInputProps {
+  tokenAddress: string;
+  userAddress: string;
+  inputValid: {
+    userAddress: boolean,
+    tokenAddress: boolean,
+  };
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 export default function AddressInput ({
   tokenAddress,
   userAddress,
   inputValid,
   handleSubmit,
   handleInputChange,
-}) {
+}: AddressInputProps) {
   // Evaluates true if both inputs are invalid, or if token address length is 0 or if user address length is 0 => we don't want to show the error messages on the empty input fields, but we also don't want to enable the button with empty input fields
   const buttonDisabled =
     !(inputValid.userAddress && inputValid.tokenAddress) ||
     !tokenAddress.length ||
     !userAddress.length;
+
+  console.log('styles: ', styles)
 
   return (
     <form className={styles.addressInput} onSubmit={handleSubmit}>

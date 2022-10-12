@@ -5,7 +5,7 @@ const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a7fc233285164a97a2ac707db1f02570'
 );
 
-async function getTokenBalance(userAddress, tokenAddress) {
+async function getTokenBalance(userAddress: string, tokenAddress: string) {
   const ERC20_ABI = [
     'function name() view returns (string)',
     'function symbol() view returns (string)',
@@ -20,6 +20,8 @@ async function getTokenBalance(userAddress, tokenAddress) {
   const decimals = await contract.decimals();
   let tokenBalance = await contract.balanceOf(userAddress);
 
+  console.log('contract: ', contract)
+
   tokenBalance = (tokenBalance / 10 ** decimals).toLocaleString('en', {
     maximumFractionDigits: 18,
   });
@@ -31,12 +33,12 @@ async function getTokenBalance(userAddress, tokenAddress) {
   };
 }
 
-async function resolveENS(userAddress) {
+async function resolveENS(userAddress: string) {
   const response = await provider.lookupAddress(userAddress);
   return response ?? userAddress;
 }
 
-function isAddress(address) {
+function isAddress(address: string) {
   return ethers.utils.isAddress(address);
 }
 

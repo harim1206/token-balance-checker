@@ -1,5 +1,5 @@
 import styles from './Dashboard.module.scss';
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import { ethersLib } from '../../library/ethers';
 import AddressInput from './AddressInput/AddressInput';
 import TokenBalance from './TokenBalance/TokenBalance';
@@ -27,7 +27,8 @@ export default function Dashboard () {
     tokenAddress: true
   });
 
-  function handleInputChange (e) {
+  function handleInputChange (e: React.ChangeEvent<HTMLInputElement>): void {
+    if (!e.target) return;
     const { value, name } = e.target;
     setTokenBalanceData(initialTokenBalanceState);
 
@@ -40,9 +41,9 @@ export default function Dashboard () {
       ...inputs,
       [name]: value,
     });
-  };
+  }
 
-  function handleSubmit (e) {
+  function handleSubmit (e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     getTokenBalance();
     getENSname();
