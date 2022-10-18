@@ -1,9 +1,9 @@
 import { React } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
-import Dashboard from './Dashboard';
+import Dashboard from '../components/Dashboard/Dashboard';
 
 describe('Initial Rendering', () => {
   let submit, TokenAddressInput, UserAddressInput;
@@ -126,4 +126,28 @@ describe('Token Balance', () => {
   test('Displays an ENS name if it exists', () => {});
 
   test('Displays the address if ENS name does not exist', () => {});
+});
+
+test.only('Entering valid addresses displays a valid token balance display', async () => {
+  /*
+    1. select token and user address inputs
+    2. enter valid addresses in the inputs
+    3. select submit button and click the submit button
+    4. mock the fetch api
+    5. expect the token balance display to be in the document, and display the valid results
+
+  */
+  render(<Dashboard />);
+  const validTokenAddress = '0x994da0c3437a823F9e47dE448B62397D1bDfDdBa';
+  const validUserAddress = '0x485b875e46c268C5c95815532C5Bba0F819997ea';
+
+  const tokenAddress = screen.getByRole('textbox', {
+    name: /token address \*/i,
+  });
+  const userAddress = screen.getByRole('textbox', { name: /user address \*/i });
+  const submit = screen.getByRole('button', { name: /submit/i });
+
+  userEvent.type(tokenAddress, validTokenAddress);
+  userEvent.type(userAddress, validUserAddress);
+  userEvent.click(submit);
 });

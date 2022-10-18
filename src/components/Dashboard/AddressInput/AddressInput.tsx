@@ -25,8 +25,6 @@ export default function AddressInput ({
     !tokenAddress.length ||
     !userAddress.length;
 
-  console.log('styles: ', styles)
-
   return (
     <form className={styles.addressInput} onSubmit={handleSubmit}>
       <div className={styles.addressInputGroup}>
