@@ -20,8 +20,6 @@ async function getTokenBalance(userAddress: string, tokenAddress: string) {
   const decimals = await contract.decimals();
   let tokenBalance = await contract.balanceOf(userAddress);
 
-  console.log('contract: ', contract)
-
   tokenBalance = (tokenBalance / 10 ** decimals).toLocaleString('en', {
     maximumFractionDigits: 18,
   });

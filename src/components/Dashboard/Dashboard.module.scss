@@ -20,6 +20,19 @@
     margin-bottom: 30px;
   }
 
+  .assetLabel {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid pink;
+      border-radius: 10px;
+    }
+  }
+
   .tokenBalanceError {
     background-color: $lavender-light;
     border-radius: 15px;

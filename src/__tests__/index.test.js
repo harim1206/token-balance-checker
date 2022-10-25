@@ -2,152 +2,100 @@ import { React } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-
+import { ethersLib } from '../library/ethers';
 import Dashboard from '../components/Dashboard/Dashboard';
 
-describe('Initial Rendering', () => {
-  let submit, TokenAddressInput, UserAddressInput;
-
-  beforeEach(() => {
-    render(<Dashboard />);
-    submit = screen.getByRole('button');
-    TokenAddressInput = screen.getByTestId('token-address');
-    UserAddressInput = screen.getByTestId('user-address');
-  });
-
-  test('Token address input is rendered and blank', () => {
-    expect(TokenAddressInput).toBeInTheDocument();
-    expect(TokenAddressInput.value).toBe('');
-  });
-
-  test('User address input is rendered and blank', () => {
-    expect(UserAddressInput).toBeInTheDocument();
-    expect(UserAddressInput.value).toBe('');
-  });
-
-  test('Submit button is disabled', () => {
-    expect(submit).toBeInTheDocument();
-    expect(submit).toBeDisabled();
-  });
-
-  test('Balance display is hidden', () => {
-    render(<Dashboard />);
-    const TokenBalance = screen.queryByTestId('token-balance');
-
-    expect(TokenBalance).toBeNull();
-  });
-});
-
-describe('Input Validation', () => {
-  let submit,
-    TokenAddressInput,
-    UserAddressInput,
-    TokenAddressInputError,
-    UserAddressInputError,
-    validEthAddress,
-    invalidEthAddress;
-
-  beforeEach(() => {
-    render(<Dashboard />);
-    submit = screen.getByRole('button');
-    TokenAddressInput = screen.getByTestId('token-address');
-    UserAddressInput = screen.getByTestId('user-address');
-    TokenAddressInputError = screen.getByText(
-      /Please enter a valid token address/
-    );
-    UserAddressInputError = screen.getByText(
-      /Please enter a valid user address/
-    );
-    validEthAddress = '0x994da0c3437a823F9e47dE448B62397D1bDfDdBa';
-    invalidEthAddress = 'test';
-  });
-
-  test('Token Address Input: Error message shows and submit is disabled when the input is invalid', () => {
-    userEvent.type(TokenAddressInput, invalidEthAddress);
-
-    expect(TokenAddressInputError).not.toHaveClass('hidden');
-    expect(submit).toBeDisabled();
-  });
-
-  test('Token Address Input: Error message is hidden when the input is valid', () => {
-    userEvent.clear(TokenAddressInput);
-    userEvent.type(TokenAddressInput, validEthAddress);
-
-    expect(TokenAddressInputError).toHaveClass('hidden');
-  });
-
-  test('User Address Input: Error message shows and submit is disabled when the input is invalid', () => {
-    userEvent.type(UserAddressInput, invalidEthAddress);
-
-    expect(UserAddressInputError).not.toHaveClass('hidden');
-    expect(submit).toBeDisabled();
-  });
-
-  test('User Address Input: Error message is hidden when the input is valid', () => {
-    userEvent.type(UserAddressInput, validEthAddress);
-
-    expect(UserAddressInputError).toHaveClass('hidden');
-  });
-});
-
-describe('Submit Validation', () => {
-  let submit, TokenAddressInput, UserAddressInput, validEthAddress;
-
-  beforeEach(() => {
-    render(<Dashboard />);
-    submit = screen.getByRole('button');
-    TokenAddressInput = screen.getByTestId('token-address');
-    UserAddressInput = screen.getByTestId('user-address');
-    validEthAddress = '0x994da0c3437a823F9e47dE448B62397D1bDfDdBa';
-  });
-
-  test('Submit button is enabled when both of the inputs are valid', () => {
-    userEvent.type(TokenAddressInput, validEthAddress);
-    userEvent.type(UserAddressInput, validEthAddress);
-
-    expect(submit).toBeEnabled();
-  });
-
-  test('Submit button is disabled when the inputs are blank', () => {
-    userEvent.clear(TokenAddressInput);
-    userEvent.clear(UserAddressInput);
-
-    expect(submit).toBeDisabled();
-  });
-});
-
-describe('Token Balance', () => {
-  test('If there is no result, error message is displayed', () => {});
-
-  test('If there is a result, tokenbalance is displayed', () => {});
-
-  test('Token decimals are displayed correctly for different tokens', () => {});
-
-  test('Displays an ENS name if it exists', () => {});
-
-  test('Displays the address if ENS name does not exist', () => {});
-});
-
-test.only('Entering valid addresses displays a valid token balance display', async () => {
-  /*
-    1. select token and user address inputs
-    2. enter valid addresses in the inputs
-    3. select submit button and click the submit button
-    4. mock the fetch api
-    5. expect the token balance display to be in the document, and display the valid results
-
-  */
+test('Entering valid addresses displays a valid token balance display', async () => {
   render(<Dashboard />);
-  const validTokenAddress = '0x994da0c3437a823F9e47dE448B62397D1bDfDdBa';
-  const validUserAddress = '0x485b875e46c268C5c95815532C5Bba0F819997ea';
+  // mock token balance / ens name fetch response
+  const tokenBalanceResp = {
+    name: 'ChainLink Token',
+    symbol: '',
+    tokenBalance: 2556,
+  };
+  const ensNameResp = 'harim';
 
+  // mock token balance / ens name fetch
+  jest.spyOn(ethersLib, 'getTokenBalance').mockResolvedValue(tokenBalanceResp);
+  jest.spyOn(ethersLib, 'resolveENS').mockResolvedValue(ensNameResp);
+
+  const validTokenAddress = '0x514910771AF9Ca656af840dff83E8264EcF986CA';
+  const validUserAddress = '0x485b875e46c268C5c95815532C5Bba0F819997ea';
   const tokenAddress = screen.getByRole('textbox', {
     name: /token address \*/i,
   });
   const userAddress = screen.getByRole('textbox', { name: /user address \*/i });
   const submit = screen.getByRole('button', { name: /submit/i });
 
+  // simulate user entering address values and hitting submit
   userEvent.type(tokenAddress, validTokenAddress);
   userEvent.type(userAddress, validUserAddress);
   userEvent.click(submit);
+
+  await waitFor(() => {
+    expect(screen.getByText(/ENS Name/)).toBeInTheDocument();
+  });
+
+  expect(screen.getByText('harim')).toBeInTheDocument();
+  expect(screen.getByText('ChainLink Token')).toBeInTheDocument();
+  expect(screen.getByText('2556')).toBeInTheDocument();
+});
+
+test('Entering invalid addresses displays an error display', async () => {
+  render(<Dashboard />);
+  // mock token balance error
+  jest.spyOn(ethersLib, 'getTokenBalance').mockRejectedValue(new Error());
+
+  const validTokenAddress = '0x485b875e46c268C5c95815532C5Bba0F819997ea';
+  const validUserAddress = '0x485b875e46c268C5c95815532C5Bba0F819997ea';
+  const tokenAddress = screen.getByRole('textbox', {
+    name: /token address \*/i,
+  });
+  const userAddress = screen.getByRole('textbox', { name: /user address \*/i });
+  const tokenAddressError = screen.getByText(
+    /please enter a valid token address/i
+  );
+  const userAddressError = screen.getByText(
+    /please enter a valid user address/i
+  );
+  const submit = screen.getByRole('button', { name: /submit/i });
+
+  // simulate user entering address values and hitting submit
+  userEvent.type(tokenAddress, validTokenAddress);
+  userEvent.type(userAddress, validUserAddress);
+  userEvent.click(submit);
+
+  expect(tokenAddressError).toHaveClass('hidden');
+  expect(userAddressError).toHaveClass('hidden');
+
+  await waitFor(() => {
+    expect(
+      screen.getByText(/No result from input addresses/)
+    ).toBeInTheDocument();
+  });
+});
+
+test('Entering addresses in invalid format shows error states', () => {
+  render(<Dashboard />);
+
+  const invalidAddress = 'xyz';
+  const tokenAddress = screen.getByRole('textbox', {
+    name: /token address \*/i,
+  });
+  const userAddress = screen.getByRole('textbox', { name: /user address \*/i });
+  const submit = screen.getByRole('button', { name: /submit/i });
+  const tokenAddressError = screen.getByText(
+    /please enter a valid token address/i
+  );
+  const userAddressError = screen.getByText(
+    /please enter a valid user address/i
+  );
+
+  // simulate user entering address values and hitting submit
+  userEvent.type(tokenAddress, invalidAddress);
+  userEvent.type(userAddress, invalidAddress);
+
+  expect(submit).toBeDisabled();
+  expect(tokenAddressError).not.toHaveClass('hidden');
+  expect(userAddressError).not.toHaveClass('hidden');
 });

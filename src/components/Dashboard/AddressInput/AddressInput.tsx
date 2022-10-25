@@ -40,13 +40,13 @@ export default function AddressInput ({
           value={tokenAddress}
           onChange={handleInputChange}
         />
-        <p className={inputValid.tokenAddress ? 'error hidden' : 'error'}>
+        <p className={inputValid.tokenAddress ? `${styles.error} ${styles.hidden}` : styles.error}>
           Please enter a valid token address
         </p>
       </div>
       <div className={styles.addressInputGroup}>
         <label htmlFor="user-address">
-          User Address <span className="required">*</span>
+          User Address <span className={styles.required}>*</span>
         </label>
         <input
           type="text"
@@ -57,7 +57,7 @@ export default function AddressInput ({
           value={userAddress}
           onChange={handleInputChange}
         />
-        <p className={inputValid.userAddress ? 'error hidden' : 'error'}>
+        <p className={inputValid.userAddress ? `${styles.error} ${styles.hidden}` : styles.error}>
           Please enter a valid user address
         </p>
       </div>
