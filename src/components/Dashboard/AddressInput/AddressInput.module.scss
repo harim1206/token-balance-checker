@@ -1,9 +1,10 @@
 @import '../../../styles/mixins';
 @import '../../../styles/vars';
 
-.address-input {
+.addressInput {
+  margin-top: 30px;
 
-  &__group {
+  .addressInputGroup {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -58,7 +59,7 @@
     }
   }
 
-  &__submit {
+  .addressInputSubmit {
 
     button {
       background-color: $purple;
