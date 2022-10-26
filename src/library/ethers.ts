@@ -6,6 +6,28 @@ const provider = new ethers.providers.JsonRpcProvider(
 );
 
 async function getTokenBalance(userAddress: string, tokenAddress: string) {
+  let result = {
+    name: '',
+    symbol: '',
+    balance: ''
+  };
+  tokenAddress === '0x0000000000000000000000000000000000000000'
+    ? result = await getEthereumBalance(userAddress)
+    : result = await getERC20TokenBalance(userAddress, tokenAddress);
+
+  return result;
+}
+
+async function getEthereumBalance(userAddress: string) {
+  const balance = await provider.getBalance(userAddress);
+  return {
+    name: 'Ethereum',
+    symbol: 'Eth',
+    balance: ethers.utils.formatEther(balance)
+  };
+}
+
+async function getERC20TokenBalance(userAddress: string, tokenAddress: string) {
   const ERC20_ABI = [
     'function name() view returns (string)',
     'function symbol() view returns (string)',
@@ -18,16 +40,16 @@ async function getTokenBalance(userAddress: string, tokenAddress: string) {
   const name = await contract.name();
   const symbol = await contract.symbol();
   const decimals = await contract.decimals();
-  let tokenBalance = await contract.balanceOf(userAddress);
+  let balance = await contract.balanceOf(userAddress);
 
-  tokenBalance = (tokenBalance / 10 ** decimals).toLocaleString('en', {
+  balance = (balance / 10 ** decimals).toLocaleString('en', {
     maximumFractionDigits: 18,
   });
 
   return {
     name,
     symbol,
-    tokenBalance,
+    balance,
   };
 }
 

@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { ethersLib } from '../library/ethers';
 import Dashboard from '../components/Dashboard/Dashboard';
+import 'whatwg-fetch';
 
 test('Entering valid addresses displays a valid token balance display', async () => {
   render(<Dashboard />);
@@ -11,7 +12,7 @@ test('Entering valid addresses displays a valid token balance display', async ()
   const tokenBalanceResp = {
     name: 'ChainLink Token',
     symbol: '',
-    tokenBalance: 2556,
+    balance: 2556,
   };
   const ensNameResp = 'harim';
 

@@ -5,47 +5,59 @@ import { ethplorerLib } from '../../library/ethplorer';
 import AddressInput from './AddressInput/AddressInput';
 import TokenBalance from './TokenBalance/TokenBalance';
 import SelectToken from './SelectToken/SelectToken';
-import topTokensData from '../../library/data.json';
 
 const initialTokenBalanceState = {
   name: '',
   symbol: '',
-  balance: 0
+  balance: ''
 };
 
+interface TokenData {
+  name: string;
+  symbol: string;
+  address: string;
+}
+
 export default function Dashboard () {
-  const [tokensData, setTokensData] = useState(topTokensData.tokens);
+  const [tokensData, setTokensData] = useState<TokenData[] | []>([]);
   const [tokenBalanceData, setTokenBalanceData] = useState(
     initialTokenBalanceState
   );
-  const [tokenBalanceError, setTokenBalanceError] = useState(false);
+  const [showTokenBalanceError, setShowTokenBalanceError] = useState(false);
   const [ENSName, setENSName] = useState('');
-
   const [inputs, setInputs] = useState({
     userAddress: '',
     tokenAddress: '',
-    tokenName: 'Ethereum',
-    tokenSymbol: 'ETH',
+    tokenName: 'Select Token',
+    tokenSymbol: '',
   });
-
   const [inputValid, setInputValid] = useState({
     userAddress: true,
     tokenAddress: true
   });
-  const [selectTokenView, setSelectTokenView] = useState(false)
+  const [selectTokenView, setSelectTokenView] = useState(false);
 
   useEffect(() => {
-    async function fetchTopTokens () {
-      const endpoint = 'https://api.ethplorer.io/getTopTokens?apiKey=EK-cu87W-1mdCq37-mhSWj';
-
-      const response = await fetch(endpoint);
-      const data = await response.json();
-      setTokensData(data.tokens);
-    }
-
     fetchTopTokens()
       .catch(console.error);
   }, []);
+
+  async function fetchTopTokens () {
+    const data = await ethplorerLib.fetchTopTokens();
+    let tokens: TokenData[] = data.tokens;
+
+    tokens = tokens.map((token: TokenData) => {
+      return (
+        {
+          address: token.address,
+          symbol: token.symbol,
+          name: token.name
+        }
+      );
+    });
+
+    setTokensData(tokens);
+  }
 
   function handleInputChange (e: React.ChangeEvent<HTMLInputElement>): void {
     if (!e.target) return;
@@ -74,18 +86,18 @@ export default function Dashboard () {
       const {
         name,
         symbol,
-        tokenBalance: balance
+        balance
       } = await ethersLib
         .getTokenBalance(inputs.userAddress, inputs.tokenAddress);
 
-      setTokenBalanceError(false);
+      setShowTokenBalanceError(false);
       setTokenBalanceData({
         name,
         symbol,
         balance
       });
     } catch (err) {
-      setTokenBalanceError(true);
+      setShowTokenBalanceError(true);
     }
   }
 
@@ -95,7 +107,7 @@ export default function Dashboard () {
     setENSName(name);
   }
 
-  function handleTokenClick (e: React.MouseEvent<HTMLDivElement>) {
+  function handleTokenClick (e: React.MouseEvent<HTMLDivElement>): void {
     const symbol = e.currentTarget.getAttribute('data-symbol') || '';
     const token = tokensData.find(token => token.symbol === symbol);
     const address = token ? token.address : '';
@@ -108,17 +120,31 @@ export default function Dashboard () {
   // Evaluates true if the token data is populated, and there is no error from the get token balance request, and if both inputs are valid
   const showTokenBalance =
     tokenBalanceData.name &&
-    !tokenBalanceError &&
+    !showTokenBalanceError &&
     inputValid.userAddress &&
     inputValid.tokenAddress;
+
+  const TokenAssetLabel = (
+    <div className={styles.assetLabel} onClick={() => setSelectTokenView(true)}>
+      {inputs.tokenName} <span>{inputs.tokenSymbol}</span>
+    </div>
+  );
+
+  const TokenBalanceError = (
+    <div className={styles.tokenBalanceError}>
+      <p>No result from input addresses</p>
+    </div>
+  );
 
   return (
     <main className={styles.dashboard}>
       <h1>Token Balance Checker</h1>
-      <div className={styles.assetLabel} onClick={() => setSelectTokenView(true)}>
-        {inputs.tokenName} - <span>{inputs.tokenSymbol}</span>
-      </div>
-      <SelectToken selectTokenView={selectTokenView} tokens={tokensData} handleTokenClick={handleTokenClick}/>
+      {TokenAssetLabel}
+      <SelectToken
+        selectTokenView={selectTokenView}
+        tokens={tokensData}
+        handleTokenClick={handleTokenClick}
+      />
       <AddressInput
         tokenAddress={inputs.tokenAddress}
         userAddress={inputs.userAddress}
@@ -126,14 +152,8 @@ export default function Dashboard () {
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
       />
-      {showTokenBalance && (
-        <TokenBalance tokenBalanceData={tokenBalanceData} ENSName={ENSName} />
-      )}
-      {tokenBalanceError && (
-        <div className={styles.tokenBalanceError}>
-          <p>No result from input addresses</p>
-        </div>
-      )}
+      {showTokenBalance ? (<TokenBalance tokenBalanceData={tokenBalanceData} ENSName={ENSName} />) : null}
+      {showTokenBalanceError ? (TokenBalanceError) : null}
     </main>
   );
 }

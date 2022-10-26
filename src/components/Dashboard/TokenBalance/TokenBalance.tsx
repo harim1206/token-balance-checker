@@ -4,7 +4,7 @@ import styles from './TokenBalance.module.scss';
 type TokenBalanceData = {
   name: string,
   symbol: string,
-  balance: number
+  balance: string
 }
 
 export default function TokenBalance ({ tokenBalanceData, ENSName }: { tokenBalanceData: TokenBalanceData, ENSName: string }) {
