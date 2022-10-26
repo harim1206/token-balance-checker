@@ -1,7 +1,11 @@
-Token Balance Checker
+# Token Balance Checker
+
+[Live Demo Link](https://token-balance-checker-harim-choi.vercel.app/)
+
+![Screen Shot](public/TBC-screenshot.png)
 
 ## Project Description
-Token Balance Checker is a UI to check token balances of a specified ERC20 Token and an Ethereum User Address. It is built with React, TypeScript, NextJS, SASS, Ethers.js, Jest, and React Testing Library
+Token Balance Checker is a UI to check token balances of a specified ERC20 Token and an Ethereum User Address. It is built with React, TypeScript, NextJS, SASS, Ethers.js, Jest, and React Testing Library.
 
 The app utilizes Ethers.js to interact with the Ethereum blockchain to retrieve the token information. You can enter the ERC20 Token contract address manually, or select one from the select module that shows the 50 tokens with the highest market capitalization.
 
