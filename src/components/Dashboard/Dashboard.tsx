@@ -6,17 +6,17 @@ import AddressInput from './AddressInput/AddressInput';
 import TokenBalance from './TokenBalance/TokenBalance';
 import SelectToken from './SelectToken/SelectToken';
 
-const initialTokenBalanceState = {
-  name: '',
-  symbol: '',
-  balance: ''
-};
-
 interface TokenData {
   name: string;
   symbol: string;
   address: string;
 }
+
+const initialTokenBalanceState = {
+  name: '',
+  symbol: '',
+  balance: ''
+};
 
 export default function Dashboard () {
   const [tokensData, setTokensData] = useState<TokenData[] | []>([]);
@@ -59,8 +59,32 @@ export default function Dashboard () {
     setTokensData(tokens);
   }
 
-  function handleInputChange (e: React.ChangeEvent<HTMLInputElement>): void {
-    if (!e.target) return;
+  async function getTokenBalance () {
+    try {
+      const {
+        name,
+        symbol,
+        balance
+      } = await ethersLib
+        .getTokenBalance(inputs.userAddress, inputs.tokenAddress);
+
+      setTokenBalanceData({
+        name,
+        symbol,
+        balance
+      });
+      setShowTokenBalanceError(false);
+    } catch (err) {
+      setShowTokenBalanceError(true);
+    }
+  }
+
+  async function getENSname () {
+    const name = await ethersLib.resolveENS(inputs.userAddress);
+    setENSName(name);
+  }
+
+  function handleInputChange (e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
     setTokenBalanceData(initialTokenBalanceState);
 
@@ -75,39 +99,13 @@ export default function Dashboard () {
     });
   }
 
-  function handleSubmit (e: React.FormEvent<HTMLFormElement>): void {
+  function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     getTokenBalance();
     getENSname();
   }
 
-  async function getTokenBalance () {
-    try {
-      const {
-        name,
-        symbol,
-        balance
-      } = await ethersLib
-        .getTokenBalance(inputs.userAddress, inputs.tokenAddress);
-
-      setShowTokenBalanceError(false);
-      setTokenBalanceData({
-        name,
-        symbol,
-        balance
-      });
-    } catch (err) {
-      setShowTokenBalanceError(true);
-    }
-  }
-
-  async function getENSname () {
-    const name = await ethersLib.resolveENS(inputs.userAddress);
-
-    setENSName(name);
-  }
-
-  function handleTokenClick (e: React.MouseEvent<HTMLDivElement>): void {
+  function handleTokenClick (e: React.MouseEvent<HTMLDivElement>) {
     const symbol = e.currentTarget.getAttribute('data-symbol') || '';
     const token = tokensData.find(token => token.symbol === symbol);
     const address = token ? token.address : '';

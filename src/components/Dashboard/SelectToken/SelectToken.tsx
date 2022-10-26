@@ -1,14 +1,21 @@
 import React from 'react';
 import styles from './SelectToken.module.scss';
 
+interface TokenData {
+  name: string;
+  symbol: string;
+  address: string;
+}
+
 interface SelectTokenProps {
-  tokens: any;
+  tokens: TokenData[];
   selectTokenView: boolean;
   handleTokenClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export default function SelectToken ({ tokens, selectTokenView, handleTokenClick }: SelectTokenProps) {
-  const assetRows = tokens.map((token: { symbol: string; name: string; address: string; }, i: React.Key | null | undefined) => {
+  const assetRows = tokens.map((token, i: React.Key) => {
+    // if symbol string length is greater than 5, it's inaccurate, use name as symbol
     const symbol = token.symbol.length > 5 ? token.name : token.symbol;
     return (
       <div key={i} className={styles.assetRow} data-symbol={token.symbol} onClickCapture={handleTokenClick}>
