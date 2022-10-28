@@ -18,6 +18,8 @@ As an example, try selecting 'Ethereum' from the select module, and enter `0xd8d
 3. `npm dev` - to start the development environment
 4. `npm test` - to run the react test suites
 
+The project requires an Infura key for Ethers.js and an API key for the Ethplorer API in order to fetch the data. You can obtain a free key for Infura on their website at [www.infura.io](www.infura.io), and one for Ethplorer at [www.ethplorer.io](www.ethplorer.io). Otherwise, shoot me an email and I can provide the keys!
+
 ### Node version requirements
 
 This project was developed on Node v14.17.6 & npm v6.14.15
