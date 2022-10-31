@@ -7,7 +7,7 @@
 ## Project Description
 Token Balance Checker is a UI to check token balances of a specified ERC20 Token and an Ethereum User Address. It is built with React, TypeScript, NextJS, SASS, Ethers.js, Jest, and React Testing Library.
 
-The app utilizes Ethers.js to interact with the Ethereum blockchain to retrieve the token information. You can enter the ERC20 Token contract address manually, or select one from the select module that shows the 50 tokens with the highest market capitalization.
+The app utilizes Ethers.js to interact with the Ethereum blockchain to retrieve the token information and resolves the user's ENS address if available. You can enter the ERC20 Token contract address manually, or select one from the select module that shows the 50 tokens with the highest market capitalization.
 
 As an example, try selecting 'Ethereum' from the select module, and enter `0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045` in the user address!
 
