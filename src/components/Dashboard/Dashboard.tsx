@@ -115,29 +115,43 @@ export default function Dashboard () {
     setSelectTokenView(false);
   }
 
-  // Evaluates true if the token data is populated, and there is no error from the get token balance request, and if both inputs are valid
-  const showTokenBalance =
-    tokenBalanceData.name &&
-    !showTokenBalanceError &&
-    inputValid.userAddress &&
-    inputValid.tokenAddress;
+  const TokenBalanceDisplay = () => {
+    // Evaluates true if the token data is populated, and there is no error from the get token balance request, and if both inputs are valid
+    const showTokenBalance =
+      tokenBalanceData.name &&
+      !showTokenBalanceError &&
+      inputValid.userAddress &&
+      inputValid.tokenAddress;
 
-  const TokenAssetLabel = (
-    <div className={styles.assetLabel} onClick={() => setSelectTokenView(true)}>
-      {inputs.tokenName} <span>{inputs.tokenSymbol}</span>
-    </div>
-  );
+    if (!showTokenBalance) return null;
 
-  const TokenBalanceError = (
-    <div className={styles.tokenBalanceError}>
-      <p>No result from input addresses</p>
-    </div>
-  );
+    return (
+      <TokenBalance tokenBalanceData={tokenBalanceData} ENSName={ENSName} />
+    );
+  };
+
+  const TokenAssetLabel = () => {
+    return (
+      <div className={styles.assetLabel} onClick={() => setSelectTokenView(true)}>
+        {inputs.tokenName} <span>{inputs.tokenSymbol}</span>
+      </div>
+    );
+  };
+
+  const TokenBalanceError = () => {
+    if (!showTokenBalanceError) return null;
+
+    return (
+      <div className={styles.tokenBalanceError}>
+        <p>No result from input addresses</p>
+      </div>
+    );
+  };
 
   return (
     <main className={styles.dashboard}>
       <h1>Token Balance Checker</h1>
-      {TokenAssetLabel}
+      <TokenAssetLabel/>
       <SelectToken
         selectTokenView={selectTokenView}
         tokens={tokensData}
@@ -150,8 +164,8 @@ export default function Dashboard () {
         handleInputChange={handleInputChange}
         handleSubmit={handleSubmit}
       />
-      {showTokenBalance ? (<TokenBalance tokenBalanceData={tokenBalanceData} ENSName={ENSName} />) : null}
-      {showTokenBalanceError ? (TokenBalanceError) : null}
+      <TokenBalanceDisplay/>
+      <TokenBalanceError/>
     </main>
   );
 }
